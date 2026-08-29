@@ -1,0 +1,292 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 60 10% 96%;
+    --foreground: 0 0% 9%;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #F5F5F2;
+    color: #171717;
+    font-family: "Manrope", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .section-label {
+    @apply text-xs font-semibold tracking-[0.15em] uppercase text-[#6B6B67];
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-3 bg-[#171717] text-white text-sm font-semibold px-6 py-3.5 rounded-full transition-all duration-300 hover:bg-[#2a2a2a] hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .btn-icon {
+    @apply w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:translate-x-0.5;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 text-sm font-semibold text-[#171717] transition-all duration-300 hover:gap-3;
+  }
+
+  .card-base {
+    @apply bg-white rounded-2xl border border-[#E5E5E1] p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
+  }
+}
+
+/* ── Page load fade-in ── */
+@keyframes page-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-fadein {
+  animation: page-fadein 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Staggered children for hero text lines */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Scroll reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.10s; }
+.reveal-delay-2 { transition-delay: 0.20s; }
+.reveal-delay-3 { transition-delay: 0.30s; }
+.reveal-delay-4 { transition-delay: 0.40s; }
+
+/* Slide-in from left variant */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F5F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #D0CFC9;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B0AFA9;
+}
+
+/* Modal entrance animation */
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-modal-in {
+  animation: modal-in 0.3s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Hide scrollbar for thumbnail strip */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Image hover zoom */
+.img-zoom {
+  overflow: hidden;
+  border-radius: inherit;
+}
+.img-zoom img {
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.img-zoom:hover img {
+  transform: scale(1.04);
+}
+
+/* ═══════════════════════════════════════════
+   HERO SLIDER — Ken Burns variants
+   Each variant pans in a slightly different
+   direction for a cinematic film-like feel.
+═══════════════════════════════════════════ */
+
+/* a: slow zoom + drift right */
+@keyframes kenburns-a {
+  0%   { transform: scale(1.00) translate(0%, 0%); }
+  100% { transform: scale(1.06) translate(-1.2%, -0.5%); }
+}
+
+/* b: zoom + drift up-left */
+@keyframes kenburns-b {
+  0%   { transform: scale(1.00) translate(0%, 0%); }
+  100% { transform: scale(1.06) translate(1.0%, -1.0%); }
+}
+
+/* c: zoom + very subtle drift down */
+@keyframes kenburns-c {
+  0%   { transform: scale(1.00) translate(0%, 0%); }
+  100% { transform: scale(1.055) translate(0%, 0.8%); }
+}
+
+/* d: zoom + pan right */
+@keyframes kenburns-d {
+  0%   { transform: scale(1.00) translate(-0.8%, 0%); }
+  100% { transform: scale(1.06) translate(0.8%, -0.6%); }
+}
+
+/* e: reverse zoom + drift up */
+@keyframes kenburns-e {
+  0%   { transform: scale(1.06) translate(0.5%, 0.5%); }
+  100% { transform: scale(1.00) translate(0%, 0%); }
+}
+
+/* f: zoom + left pan */
+@keyframes kenburns-f {
+  0%   { transform: scale(1.00) translate(1.0%, 0%); }
+  100% { transform: scale(1.06) translate(-0.6%, -0.8%); }
+}
+
+/* g: gentle zoom with slight down pan */
+@keyframes kenburns-g {
+  0%   { transform: scale(1.02) translate(0%, -0.5%); }
+  100% { transform: scale(1.07) translate(-0.4%, 0.6%); }
+}
+
+/* ── Hero progress bar ── */
+@keyframes hero-progress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+.hero-progress {
+  animation: hero-progress 5000ms linear forwards;
+}
+
+/* ── Location pill fade-in ── */
+@keyframes location-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-location-pill {
+  animation: location-in 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Respect reduced-motion: strip all hero animations */
+@media (prefers-reduced-motion: reduce) {
+  [style*="kenburns"] {
+    animation: none !important;
+  }
+  .hero-progress {
+    animation: none !important;
+    width: 100% !important;
+  }
+  .hero-location-pill {
+    animation: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   TESTIMONIAL MARQUEE
+   Two rows scroll in opposite directions.
+   Each track is triple-duplicated so the
+   loop is always seamless.
+═══════════════════════════════════════════ */
+
+/* The track width for one full set = width of (items × (card-width + gap))
+   We animate translateX by −33.333% (one set out of three) so the
+   second set lines up perfectly, creating a perfect loop. */
+
+@keyframes marquee-left {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-33.3334%, 0, 0); }
+}
+
+@keyframes marquee-right {
+  0%   { transform: translate3d(-33.3334%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.marquee-track-left {
+  animation: marquee-left var(--marquee-duration, 40s) linear infinite;
+}
+
+.marquee-track-right {
+  animation: marquee-right var(--marquee-duration, 44s) linear infinite;
+}
+
+/* Hover lift on individual cards */
+.testimonial-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+  transform: translateY(-3px);
+}
+
+/* Reduced motion: stop marquees, allow free scroll */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track-left,
+  .marquee-track-right {
+    animation: none !important;
+    transform: none !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
